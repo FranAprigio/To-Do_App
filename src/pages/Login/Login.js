@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View, Button, Image, Pressable } from 'react-native';
 import { Link } from "@react-navigation/native";
-import Authentication from "../../../database/authentication"
+import Authentication from "../../../database/autentication"
 
 export default function Login({navigation}) {
     const [email, setEmail] = React.useState(null);
@@ -16,6 +16,8 @@ export default function Login({navigation}) {
         .catch((error) => {
           alert(error);
         });
+    
+    
   };
 
     return (
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   },
 
   sub:{
-    fontSize:16,
+    fontSize: '1em',
   },
 
   input: {
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
 
   h3:{
     marginTop:20,
-    fontSize:16,
+    fontSize:'1em',
   },
 
   pressable:{
