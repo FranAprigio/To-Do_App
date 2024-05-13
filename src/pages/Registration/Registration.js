@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
 import Storage from '../../../database/storage';
-import Authentication from "../../../database/authentication";
+import Authentication from "../../../database/autentication";
 
 import { Link } from "@react-navigation/native";
 
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 const storage = new Storage();
 
 export default function Registration({navigation}) {
   
-        //variavel do storage
+    
+
+    //variavel do storage
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -32,6 +34,8 @@ export default function Registration({navigation}) {
     storage.registerUsername(name, userId).then(() => {
       navigation.navigate('Home');
     })   
+      
+   
     
   };
   
@@ -56,7 +60,7 @@ export default function Registration({navigation}) {
                 onChangeText={setEmail}
                 value={email}
                 placeholder="arthur.villaça.imagi.com"
-                keyboardType="email-address"
+                keyboardType="text"
             />
             
             <Text style={styles.sub}>Senha</Text>
@@ -66,9 +70,9 @@ export default function Registration({navigation}) {
                 secureTextEntry={true}
                 value={senha}
                 placeholder="****************"
-                keyboardType="numeric"
+                keyboardType="text"
             />
-            
+            <Button onPress={handleRegister}></Button>
             <Pressable style={styles.pressable}
             onPress={handleRegister}>
             <Text style={styles.pressableText}>REGISTRAR</Text>
@@ -90,17 +94,17 @@ const styles = StyleSheet.create({
   },
 
   h1:{
-    fontSize:20,
+    fontSize: '1.7em',
     marginBottom:15,
   },
 
   h2:{
-    fontSize:16,
+    fontSize:'1.2em',
     marginBottom:15,
   },
 
   sub:{
-    fontSize:16,
+    fontSize: '1em',
   },
 
   input: {
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
 
   h3:{
     marginTop:20,
-    fontSize:15,
+    fontSize:'1em',
   },
 
   pressable:{
