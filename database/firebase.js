@@ -1,18 +1,21 @@
-// import firebase from 'firebase';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDLFz_jQ6289zae0ND1nf-XKFzWb9zbzy0",
-//   authDomain: "trabalhofinal-36114.firebaseapp.com",
-//   databaseURL: "https://trabalhofinal-36114-default-rtdb.firebaseio.com",
-//   projectId: "trabalhofinal-36114",
-//   storageBucket: "trabalhofinal-36114.appspot.com",
-//   messagingSenderId: "874190626350",
-//   appId: "1:874190626350:web:36e2cf518461c4434b49bf"
-// };
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDwNOZmBK6VpqkMNIjBD2mH2UR-JAcZ2MI",
+  authDomain: "to-do-app-2b128.firebaseapp.com",
+  projectId: "to-do-app-2b128",
+  storageBucket: "to-do-app-2b128.appspot.com",
+  messagingSenderId: "537401261837",
+  appId: "1:537401261837:web:afe593ceea2db30b323a44",
+  measurementId: "G-Q5RT8EM306"
+};
 
-//   // Initialize Firebase
-//   if (!firebase.apps.length) {
-//      firebase.initializeApp(firebaseConfig);
-//   }
-
-//   export default firebase;  
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
