@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View, Button, Image, Pressable } from 'react-native';
 import { Link } from "@react-navigation/native";
-import Authentication from "../../../database/autentication"
+import Authentication from "../../../database/authentication"
 
 export default function Login({navigation}) {
     const [email, setEmail] = React.useState(null);
@@ -16,8 +16,6 @@ export default function Login({navigation}) {
         .catch((error) => {
           alert(error);
         });
-    
-    
   };
 
     return (
@@ -30,7 +28,7 @@ export default function Login({navigation}) {
                 style={styles.input}
                 onChangeText={setEmail}
                 value={email}
-                placeholder="arthur.villaça.imagi.com"
+                placeholder="user@email.com"
                 keyboardType="text"
             />
             <Text style={styles.sub}>Senha</Text>
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
   },
 
   sub:{
-    fontSize: '1em',
+    fontSize:16,
   },
 
   input: {
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
 
   h3:{
     marginTop:20,
-    fontSize:'1em',
+    fontSize:15,
   },
 
   pressable:{
