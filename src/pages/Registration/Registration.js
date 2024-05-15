@@ -1,65 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 import Storage from '../../../database/storage';
-import Authentication from "../../../database/autentication";
-
+import Authentication from "../../../database/authentication";
 import { Link } from "@react-navigation/native";
-
-import AsyncStorage from '@react-native-community/async-storage';
 
 const storage = new Storage();
 
 export default function Registration({navigation}) {
   
-    
-
-    //variavel do storage
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    //salva registro
-    const addContent = () => {
-    storage.add({ name, email, senha });
-    // navigation.navigate('ListContentScreen');
-    navigation.navigate('Home');
-
+    const handleRegister = async () => {
+        await Authentication.registerUser(email, senha);
+        await Authentication.login(email, senha);
+        const userId = await Authentication.getCurrentUser();
+        storage.registerUsername(name, userId).then(() => {
+            navigation.navigate('Home');
+        })   
     };
   
-    const handleRegister = async() => {
-    await Authentication.registerUser(email, senha);
-    await Authentication.login(email, senha);
-    const userId = await Authentication.getCurrentUser();
-    storage.registerUsername(name, userId).then(() => {
-      navigation.navigate('Home');
-    })   
-      
-   
-    
-  };
-  
     return (
-
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text style={styles.h1}>Bem Vindo</Text>
             <Text style={styles.h2}>Vamos ajudá-lo a concluir suas tarefas</Text>
 
-            <Text style={styles.sub}>Nome Completo</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={setName}
-                value={name}
-                placeholder="Arthur Villaça Gadun"
-                keyboardType="text"
-            />
             <Text style={styles.sub}>Email</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setEmail}
                 value={email}
-                placeholder="arthur.villaça.imagi.com"
+                placeholder="user@email.com"
                 keyboardType="text"
             />
             
@@ -72,14 +46,13 @@ export default function Registration({navigation}) {
                 placeholder="****************"
                 keyboardType="text"
             />
-            <Button onPress={handleRegister}></Button>
-            <Pressable style={styles.pressable}
-            onPress={handleRegister}>
-            <Text style={styles.pressableText}>REGISTRAR</Text>
+
+            <Pressable style={styles.pressable} onPress={handleRegister}>
+                <Text style={styles.pressableText}>REGISTRAR</Text>
             </Pressable>
 
             <Link style={styles.h3} to={{ screen: 'Login'}}>
-            Ja possui uma conta? Sign In
+                Já possui uma conta? Sign In
             </Link>
         </View>
     );
@@ -94,17 +67,17 @@ const styles = StyleSheet.create({
   },
 
   h1:{
-    fontSize: '1.7em',
+    fontSize:20,
     marginBottom:15,
   },
 
   h2:{
-    fontSize:'1.2em',
+    fontSize:16,
     marginBottom:15,
   },
 
   sub:{
-    fontSize: '1em',
+    fontSize:16,
   },
 
   input: {
@@ -121,7 +94,8 @@ const styles = StyleSheet.create({
 
   h3:{
     marginTop:20,
-    fontSize:'1em',
+    fontSize:15,
+    fontStyle:'italic'
   },
 
   pressable:{
