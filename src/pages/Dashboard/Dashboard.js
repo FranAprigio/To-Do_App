@@ -2,7 +2,7 @@ import * as React from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
-export default function Dashboard({navigation}) {
+export default function Dashboard({navigation, handleRegister }) {
   
   return (
     <View style={styles.container}>
@@ -19,6 +19,9 @@ export default function Dashboard({navigation}) {
       onPress={() => navigation.navigate('Registration')}>
       <Text style={styles.pressableText}>INICIAR</Text>
       </Pressable>
+
+
+      
 
     </View>
   );
