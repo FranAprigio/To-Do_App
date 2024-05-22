@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Importe o Ionicons corretamente
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'; // Importe o hook useNavigation
 
-const Navbar = ({ navigation }) => {
+const Navbar = () => {
+  const navigation = useNavigation(); // Utilize o hook useNavigation
+
   return (
     <View style={styles.footer}>
       <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Home')}>
