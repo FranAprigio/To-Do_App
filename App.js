@@ -4,8 +4,10 @@ import Initial from './screens/Initial';
 import Register from './screens/Register';
 import Login from './screens/Login';
 import Home from './screens/Home';
+import List from './screens/List';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import TaskForm from './screens/TaskForm';
 
 
 
@@ -19,6 +21,8 @@ export default function App() {
 			<Stack.Screen name='Login' component={Login} />
 			<Stack.Screen name='Register' component={Register} />
 			<Stack.Screen name='Home' component={Home} />
+      <Stack.Screen name='List' component={List} />
+      <Stack.Screen name='TaskForm' component={TaskForm} />
 		</Stack.Navigator>
 	</NavigationContainer>
   );
