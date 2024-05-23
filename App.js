@@ -8,7 +8,8 @@ import List from './screens/List';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import TaskForm from './screens/TaskForm';
-
+import Map from './screens/Map';
+import TaskDetail from './screens/TaskDetail';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,8 @@ export default function App() {
 			<Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='List' component={List} />
       <Stack.Screen name='TaskForm' component={TaskForm} />
+      <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="TaskDetail" component={TaskDetail} />
 		</Stack.Navigator>
 	</NavigationContainer>
   );

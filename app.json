@@ -14,13 +14,15 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "permissions": ["CAMERA", "RECORD_AUDIO"]
       }
     },
     "web": {
