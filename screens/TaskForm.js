@@ -10,12 +10,18 @@ export default function TaskForm() {
     const [taskName, setTaskName] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskId, setTaskId] = useState(null);
+    const [taskLocation, setTaskLocation] = useState(null);
 
     useEffect(() => {
         if (route.params?.task) {
-            setTaskName(route.params.task.name);
-            setTaskDescription(route.params.task.description);
-            setTaskId(route.params.task.id);
+            const { name, description, id, location } = route.params.task;
+            setTaskName(name);
+            setTaskDescription(description);
+            setTaskId(id);
+            setTaskLocation(location);
+        }
+        if (route.params?.address) {
+            setTaskLocation(route.params.address);
         }
     }, [route.params]);
 
@@ -28,8 +34,9 @@ export default function TaskForm() {
                 const taskIndex = tasks.findIndex(task => task.id === taskId);
                 tasks[taskIndex].name = taskName;
                 tasks[taskIndex].description = taskDescription;
+                tasks[taskIndex].location = taskLocation;
             } else {
-                const newTask = { id: Date.now(), name: taskName, description: taskDescription };
+                const newTask = { id: Date.now(), name: taskName, description: taskDescription, location: taskLocation };
                 tasks.push(newTask);
             }
 
@@ -42,7 +49,6 @@ export default function TaskForm() {
 
     return (
         <View style={styles.container}>
-
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('List')} style={styles.backButton}>
                     <AntDesign name="arrowleft" size={24} color="#FFF" />
@@ -63,7 +69,24 @@ export default function TaskForm() {
                 multiline={true}
                 numberOfLines={4}
             />
-            <TouchableOpacity style={styles.button} onPress={saveTask}>
+            
+            {taskLocation && (
+                <View style={styles.addressContainer}>
+                    <Text style={styles.addressTitle}>Endereço Selecionado:</Text>
+                    <Text style={styles.addressText}>Rua: {taskLocation.street}</Text>
+                    <Text style={styles.addressText}>Número: {taskLocation.name}</Text>
+                    <Text style={styles.addressText}>Cidade: {taskLocation.subregion}</Text>
+                    <Text style={styles.addressText}>Estado: {taskLocation.region}</Text>
+                    <Text style={styles.addressText}>CEP: {taskLocation.postalCode}</Text>
+                    <Text style={styles.addressText}>País: {taskLocation.country}</Text>
+                </View>
+            )}
+
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map', { setTaskLocation: setTaskLocation })}>
+                <Text style={styles.buttonText}>Selecionar Endereço</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={saveTask}>
                 <Text style={styles.buttonText}>Salvar Tarefa</Text>
             </TouchableOpacity>
         </View>
@@ -73,7 +96,6 @@ export default function TaskForm() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         backgroundColor: '#FFF',
     },
     header: {
@@ -82,7 +104,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#62D2C3',
         height: 60,
         paddingHorizontal: 10,
-
     },
     headerTitle: {
         fontSize: 18,
@@ -107,9 +128,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 50,
         borderRadius: 25,
+        marginHorizontal: 20,
+        marginBottom: 10,
+    },
+    saveButton: {
+        backgroundColor: '#007bff',
     },
     buttonText: {
         color: '#FFF',
         fontSize: 18,
+    },
+    addressContainer: {
+        marginTop: 20,
+        paddingHorizontal: 20,
+    },
+    addressTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    addressText: {
+        fontSize: 16,
     },
 });
