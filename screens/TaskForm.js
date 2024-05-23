@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import { Video } from 'expo-av'; // Pode ser removido se não houver mais vídeos
+import MediaCapture from '../components/MediaCapture';
 
 export default function TaskForm() {
     const navigation = useNavigation();
@@ -11,14 +13,18 @@ export default function TaskForm() {
     const [taskDescription, setTaskDescription] = useState('');
     const [taskId, setTaskId] = useState(null);
     const [taskLocation, setTaskLocation] = useState(null);
+    const [mediaUri, setMediaUri] = useState(null);
+    const [mediaType, setMediaType] = useState(null);
 
     useEffect(() => {
         if (route.params?.task) {
-            const { name, description, id, location } = route.params.task;
+            const { name, description, id, location, mediaUri, mediaType } = route.params.task;
             setTaskName(name);
             setTaskDescription(description);
             setTaskId(id);
             setTaskLocation(location);
+            setMediaUri(mediaUri);
+            setMediaType(mediaType);
         }
         if (route.params?.address) {
             setTaskLocation(route.params.address);
@@ -35,8 +41,10 @@ export default function TaskForm() {
                 tasks[taskIndex].name = taskName;
                 tasks[taskIndex].description = taskDescription;
                 tasks[taskIndex].location = taskLocation;
+                tasks[taskIndex].mediaUri = mediaUri;
+                tasks[taskIndex].mediaType = mediaType;
             } else {
-                const newTask = { id: Date.now(), name: taskName, description: taskDescription, location: taskLocation };
+                const newTask = { id: Date.now(), name: taskName, description: taskDescription, location: taskLocation, mediaUri, mediaType };
                 tasks.push(newTask);
             }
 
@@ -47,8 +55,18 @@ export default function TaskForm() {
         }
     };
 
+    const handleMediaCaptured = (uri, type) => {
+        setMediaUri(uri);
+        setMediaType(type);
+    };
+
+    const handleDeleteMedia = () => {
+        setMediaUri(null);
+        setMediaType(null);
+    };
+
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('List')} style={styles.backButton}>
                     <AntDesign name="arrowleft" size={24} color="#FFF" />
@@ -69,7 +87,7 @@ export default function TaskForm() {
                 multiline={true}
                 numberOfLines={4}
             />
-            
+
             {taskLocation && (
                 <View style={styles.addressContainer}>
                     <Text style={styles.addressTitle}>Endereço Selecionado:</Text>
@@ -82,6 +100,19 @@ export default function TaskForm() {
                 </View>
             )}
 
+            <View style={styles.mediaContainer}>
+                {!mediaUri ? (
+                    <MediaCapture onMediaCaptured={handleMediaCaptured} />
+                ) : (
+                    <View style={styles.previewContainer}>
+                        <Image source={{ uri: mediaUri }} style={styles.mediaPreview} />
+                        <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteMedia}>
+                            <AntDesign name="delete" size={24} color="white" />
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </View>
+
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map', { setTaskLocation: setTaskLocation })}>
                 <Text style={styles.buttonText}>Selecionar Endereço</Text>
             </TouchableOpacity>
@@ -89,14 +120,15 @@ export default function TaskForm() {
             <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={saveTask}>
                 <Text style={styles.buttonText}>Salvar Tarefa</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#FFF',
+        padding: 20,
     },
     header: {
         flexDirection: 'row',
@@ -115,7 +147,6 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 1,
         marginBottom: 20,
-        marginTop: 20, 
         paddingHorizontal: 10,
     },
     descriptionInput: {
@@ -128,8 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 50,
         borderRadius: 25,
-        marginHorizontal: 20,
-        marginBottom: 10,
+        marginVertical: 10,
     },
     saveButton: {
         backgroundColor: '#007bff',
@@ -140,7 +170,6 @@ const styles = StyleSheet.create({
     },
     addressContainer: {
         marginTop: 20,
-        paddingHorizontal: 20,
     },
     addressTitle: {
         fontSize: 16,
@@ -149,5 +178,25 @@ const styles = StyleSheet.create({
     },
     addressText: {
         fontSize: 16,
+    },
+    mediaContainer: {
+        flex: 1,
+    },
+    previewContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    mediaPreview: {
+        width: '100%',
+        height: 300,
+    },
+    deleteButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        borderRadius: 25,
+        padding: 10,
     },
 });
