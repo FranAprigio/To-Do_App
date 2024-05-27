@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Navbar from '../components/Navbar';
@@ -31,6 +31,7 @@ export default function List({ navigation }) {
             const updatedTasks = tasks.filter(task => task.id !== id);
             setTasks(updatedTasks);
             await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            Alert.alert('Sucesso', 'Tarefa excluída com sucesso');
         } catch (error) {
             console.error('Erro ao excluir a tarefa:', error);
         }
@@ -44,7 +45,7 @@ export default function List({ navigation }) {
                     <View style={styles.taskItem}>
                         <View>
                             <Text style={styles.taskName}>{item.name}</Text>
-                            <Text style={styles.taskDescription}>{item.description}</Text> 
+                            <Text style={styles.taskDescription}>{item.description}</Text>
                         </View>
                         <View style={styles.icons}>
                             <TouchableOpacity onPress={() => navigation.navigate('TaskForm', { task: item })}>
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     taskItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-start', 
+        alignItems: 'flex-start',
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderBottomWidth: 1,
