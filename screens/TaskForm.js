@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
-import { Video } from 'expo-av'; // Pode ser removido se não houver mais vídeos
 import MediaCapture from '../components/MediaCapture';
 
 export default function TaskForm() {
@@ -49,6 +48,7 @@ export default function TaskForm() {
             }
 
             await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+            Alert.alert('Sucesso', 'Tarefa salva com sucesso');
             navigation.navigate('List');
         } catch (error) {
             console.error('Erro ao salvar a tarefa:', error);
