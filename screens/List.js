@@ -43,7 +43,7 @@ export default function List({ navigation }) {
                 data={tasks}
                 renderItem={({ item }) => (
                     <View style={styles.taskItem}>
-                        <View>
+                        <View style={styles.taskTextContainer}>
                             <Text style={styles.taskName}>{item.name}</Text>
                             <Text style={styles.taskDescription}>{item.description}</Text>
                         </View>
@@ -84,10 +84,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
     },
+    taskTextContainer: {
+        flex: 1,
+        paddingRight: 20,
+    },
     icons: {
         flexDirection: 'row',
-        width: 60,
         justifyContent: 'space-between',
+        alignItems: 'center',
     },
     addButton: {
         backgroundColor: '#62D2C3',
