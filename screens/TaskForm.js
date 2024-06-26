@@ -65,81 +65,82 @@ export default function TaskForm() {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('List')} style={styles.backButton}>
                     <AntDesign name="arrowleft" size={24} color="#FFF" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Adicionar Tarefa</Text>
             </View>
-            <TextInput
-                style={styles.input}
-                placeholder="Nome da tarefa"
-                value={taskName}
-                onChangeText={setTaskName}
-            />
-            <TextInput
-                style={[styles.input, styles.descriptionInput]}
-                placeholder="Descrição da tarefa"
-                value={taskDescription}
-                onChangeText={setTaskDescription}
-                multiline={true}
-                numberOfLines={4}
-            />
-            <Picker
-                selectedValue={taskType}
-                style={styles.picker}
-                onValueChange={(itemValue) => setTaskType(itemValue)}
-            >
-                <Picker.Item label="Selecione o tipo de tarefa" value="" />
-                <Picker.Item label="Compras" value="Compras" />
-                <Picker.Item label="Escola" value="Escola" />
-                <Picker.Item label="Academia" value="Academia" />
-                <Picker.Item label="Jogos" value="Jogos" />
-                <Picker.Item label="Livros" value="Livros" />
-            </Picker>
+            <ScrollView contentContainerStyle={styles.content}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nome da tarefa"
+                    value={taskName}
+                    onChangeText={setTaskName}
+                />
+                <TextInput
+                    style={[styles.input, styles.descriptionInput]}
+                    placeholder="Descrição da tarefa"
+                    value={taskDescription}
+                    onChangeText={setTaskDescription}
+                    multiline={true}
+                    numberOfLines={4}
+                />
+                <Picker
+                    selectedValue={taskType}
+                    style={styles.picker}
+                    onValueChange={(itemValue) => setTaskType(itemValue)}
+                >
+                    <Picker.Item label="Selecione o tipo de tarefa" value="" />
+                    <Picker.Item label="Compras" value="Compras" />
+                    <Picker.Item label="Escola" value="Escola" />
+                    <Picker.Item label="Academia" value="Academia" />
+                    <Picker.Item label="Jogos" value="Jogos" />
+                    <Picker.Item label="Livros" value="Livros" />
+                </Picker>
 
-            {taskLocation && (
-                <View style={styles.addressContainer}>
-                    <Text style={styles.addressTitle}>Endereço Selecionado:</Text>
-                    <Text style={styles.addressText}>Rua: {taskLocation.street}</Text>
-                    <Text style={styles.addressText}>Número: {taskLocation.name}</Text>
-                    <Text style={styles.addressText}>Cidade: {taskLocation.subregion}</Text>
-                    <Text style={styles.addressText}>Estado: {taskLocation.region}</Text>
-                    <Text style={styles.addressText}>CEP: {taskLocation.postalCode}</Text>
-                    <Text style={styles.addressText}>País: {taskLocation.country}</Text>
-                </View>
-            )}
-
-            <View style={styles.mediaContainer}>
-                {!mediaUri ? (
-                    <MediaCapture onMediaCaptured={handleMediaCaptured} />
-                ) : (
-                    <View style={styles.previewContainer}>
-                        <Image source={{ uri: mediaUri }} style={styles.mediaPreview} />
-                        <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteMedia}>
-                            <AntDesign name="delete" size={24} color="white" />
-                        </TouchableOpacity>
+                {taskLocation && (
+                    <View style={styles.addressContainer}>
+                        <Text style={styles.addressTitle}>Endereço Selecionado:</Text>
+                        <Text style={styles.addressText}>Rua: {taskLocation.street}</Text>
+                        <Text style={styles.addressText}>Número: {taskLocation.name}</Text>
+                        <Text style={styles.addressText}>Cidade: {taskLocation.subregion}</Text>
+                        <Text style={styles.addressText}>Estado: {taskLocation.region}</Text>
+                        <Text style={styles.addressText}>CEP: {taskLocation.postalCode}</Text>
+                        <Text style={styles.addressText}>País: {taskLocation.country}</Text>
                     </View>
                 )}
-            </View>
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map', { setTaskLocation: setTaskLocation })}>
-                <Text style={styles.buttonText}>Selecionar Endereço</Text>
-            </TouchableOpacity>
+                <View style={styles.mediaContainer}>
+                    {!mediaUri ? (
+                        <MediaCapture onMediaCaptured={handleMediaCaptured} />
+                    ) : (
+                        <View style={styles.previewContainer}>
+                            <Image source={{ uri: mediaUri }} style={styles.mediaPreview} />
+                            <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteMedia}>
+                                <AntDesign name="delete" size={24} color="white" />
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </View>
 
-            <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={saveTask}>
-                <Text style={styles.buttonText}>Salvar Tarefa</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map', { setTaskLocation: setTaskLocation })}>
+                    <Text style={styles.buttonText}>Selecionar Endereço</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={saveTask}>
+                    <Text style={styles.buttonText}>Salvar Tarefa</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
+        flex: 1,
         backgroundColor: '#FFF',
-        padding: 20,
     },
     header: {
         flexDirection: 'row',
@@ -152,6 +153,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#FFF',
         marginLeft: 10,
+    },
+    content: {
+        padding: 20,
     },
     input: {
         height: 40,
@@ -192,6 +196,7 @@ const styles = StyleSheet.create({
     },
     mediaContainer: {
         flex: 1,
+        height: 300,
     },
     previewContainer: {
         flex: 1,
