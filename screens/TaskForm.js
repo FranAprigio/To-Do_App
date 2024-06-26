@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
@@ -14,16 +15,18 @@ export default function TaskForm() {
     const [taskLocation, setTaskLocation] = useState(null);
     const [mediaUri, setMediaUri] = useState(null);
     const [mediaType, setMediaType] = useState(null);
+    const [taskType, setTaskType] = useState('');
 
     useEffect(() => {
         if (route.params?.task) {
-            const { name, description, id, location, mediaUri, mediaType } = route.params.task;
+            const { name, description, id, location, mediaUri, mediaType, type } = route.params.task;
             setTaskName(name);
             setTaskDescription(description);
             setTaskId(id);
             setTaskLocation(location);
             setMediaUri(mediaUri);
             setMediaType(mediaType);
+            setTaskType(type);
         }
         if (route.params?.address) {
             setTaskLocation(route.params.address);
@@ -37,13 +40,9 @@ export default function TaskForm() {
 
             if (taskId) {
                 const taskIndex = tasks.findIndex(task => task.id === taskId);
-                tasks[taskIndex].name = taskName;
-                tasks[taskIndex].description = taskDescription;
-                tasks[taskIndex].location = taskLocation;
-                tasks[taskIndex].mediaUri = mediaUri;
-                tasks[taskIndex].mediaType = mediaType;
+                tasks[taskIndex] = { id: taskId, name: taskName, description: taskDescription, location: taskLocation, mediaUri, mediaType, type: taskType };
             } else {
-                const newTask = { id: Date.now(), name: taskName, description: taskDescription, location: taskLocation, mediaUri, mediaType };
+                const newTask = { id: Date.now(), name: taskName, description: taskDescription, location: taskLocation, mediaUri, mediaType, type: taskType };
                 tasks.push(newTask);
             }
 
@@ -87,6 +86,18 @@ export default function TaskForm() {
                 multiline={true}
                 numberOfLines={4}
             />
+            <Picker
+                selectedValue={taskType}
+                style={styles.picker}
+                onValueChange={(itemValue) => setTaskType(itemValue)}
+            >
+                <Picker.Item label="Selecione o tipo de tarefa" value="" />
+                <Picker.Item label="Compras" value="Compras" />
+                <Picker.Item label="Escola" value="Escola" />
+                <Picker.Item label="Academia" value="Academia" />
+                <Picker.Item label="Jogos" value="Jogos" />
+                <Picker.Item label="Livros" value="Livros" />
+            </Picker>
 
             {taskLocation && (
                 <View style={styles.addressContainer}>
@@ -198,5 +209,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         borderRadius: 25,
         padding: 10,
+    },
+    picker: {
+        height: 50,
+        width: '100%',
+        marginBottom: 20,
     },
 });
