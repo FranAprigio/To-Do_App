@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     detailContainer: {
-        marginTop: 10,
+        marginTop: 5,
         padding: 20,
     },
     label: {
