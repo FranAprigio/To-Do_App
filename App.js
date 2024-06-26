@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import TaskForm from './screens/TaskForm';
 import Map from './screens/Map';
 import TaskDetail from './screens/TaskDetail';
+import Statistics from './screens/Statistics';
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ export default function App() {
       <Stack.Screen name='TaskForm' component={TaskForm} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="TaskDetail" component={TaskDetail} />
+      <Stack.Screen name="Statistics" component={Statistics} />
 		</Stack.Navigator>
 	</NavigationContainer>
   );
