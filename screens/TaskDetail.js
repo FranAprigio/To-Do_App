@@ -15,11 +15,15 @@ export default function TaskDetail({ navigation }) {
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Detalhes da Tarefa</Text>
             </View>
+
+
             <View style={styles.detailContainer}>
                 <Text style={styles.label}>Nome da Tarefa:</Text>
                 <Text style={styles.value}>{task.name}</Text>
                 <Text style={styles.label}>Descrição:</Text>
                 <Text style={styles.value}>{task.description}</Text>
+                <Text style={styles.label}>Tipo:</Text>
+                <Text style={styles.text}>{task.type}</Text>
                 <Text style={styles.label}>Localização:</Text>
                 {task.location && (
                     <View>
@@ -53,7 +57,6 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: '#FFF',
-        padding: 20,
     },
     header: {
         flexDirection: 'row',
@@ -71,7 +74,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     detailContainer: {
-        marginTop: 20,
+        marginTop: 10,
+        padding: 20,
     },
     label: {
         fontSize: 16,
