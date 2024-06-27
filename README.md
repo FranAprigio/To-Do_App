@@ -67,6 +67,32 @@ Here is a list of dependencies used in the project along with their purposes:
 - **Task Detail Screen**: Detailed view of a specific task.
 - **Statistics Screen**: Visual statistics of tasks using pie and bar charts.
 
+## Aplication ScreenShots
+
+<p align="center">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/5bc006e5-0137-4cdf-851e-149d030c1ef1" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/cf4bef9b-6b51-436c-af99-5e2f9b7538f2" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/0895665e-77c7-483d-943e-1376681e68b0" width="30%">
+</p>
+
+<p align="center">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/7d0cecf2-1014-453e-9198-7aa20b17fa98" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/5c05e81b-d23a-4ccf-a574-3c99d737f725" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/b4d1f634-fa9b-4299-bc03-93652671cff5" width="30%">
+</p>
+
+<p align="center">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/5336f92d-76f7-4f8b-bd83-37bba5d96b14" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/d321f434-85a8-4f46-9e5e-f15bcfdb1dd0" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/f0929d9e-321d-4702-a12b-3336b3e0f261" width="30%">
+</p>
+
+<p align="center">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/3df337c5-311c-4592-83ac-a62116907be2" width="30%">
+    <img src="https://github.com/FranAprigio/To-Do_App/assets/70908543/1b7b0df8-ffec-4e3e-aebc-9f0cfab54318" width="30%">
+</p>
+
+
 ## Setup and Installation
 
 1. **Clone the Repository**:
