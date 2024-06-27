@@ -97,7 +97,7 @@ Here is a list of dependencies used in the project along with their purposes:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-repository/task-management-app.git
+    git clone https://github.com/FranAprigio/To-Do_App.git
     cd task-management-app
     ```
 
